@@ -11,7 +11,7 @@
   },
   "scripts": {
     "build": "node scripts/build.cjs",
-    "start": "node scripts/build.cjs && serve -s . -l $PORT",
-    "dev": "node scripts/build.cjs && serve -s . -l 5173"
+    "start": "node scripts/build.cjs && serve . -l $PORT",
+    "dev": "node scripts/build.cjs && serve . -l 5173"
   }
 }
