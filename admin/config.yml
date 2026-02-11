@@ -2,19 +2,16 @@ backend:
   name: github
   repo: liabra/jaitoutessaye
   branch: main
-  base_url: https://your-oauth-worker.workers.dev  # Cloudflare Worker OAuth (à créer)
-  auth_endpoint: /auth
+  # ⚠️ À laisser COMMENTÉ tant que ton OAuth Worker n’est pas réellement en place
+  # base_url: https://your-oauth-worker.workers.dev
+  # auth_endpoint: /auth
 
-# Publication workflow (draft -> review -> publish)
-publish_mode: editorial_workflow
+publish_mode: simple
 
-# Dossier des médias
-media_folder: "images/posts"
-public_folder: "/images/posts"
+media_folder: "assets/uploads"
+public_folder: "/assets/uploads"
 
-# Collections
 collections:
-  # Articles Maternité
   - name: "maternite"
     label: "🌸 Articles Maternité"
     folder: "content/posts/maternite"
@@ -22,22 +19,18 @@ collections:
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     extension: "md"
     format: "frontmatter"
-    editor:
-      preview: true
     fields:
       - { label: "Titre", name: "title", widget: "string" }
       - { label: "Date de publication", name: "date", widget: "datetime" }
-      - { label: "Slug", name: "slug", widget: "string", pattern: ['^[a-z0-9]+(?:-[a-z0-9]+)*$', "Le slug doit être en minuscules avec des tirets"] }
       - { label: "Catégorie", name: "category", widget: "select", options: ["Allaitement", "Sommeil", "DME", "Montessori", "Santé naturelle", "Organisation"] }
       - { label: "Résumé", name: "excerpt", widget: "text", required: true }
       - { label: "Image de couverture", name: "cover", widget: "image", required: false }
       - { label: "Tags", name: "tags", widget: "list", default: [] }
       - { label: "Temps de lecture (min)", name: "reading_time", widget: "number", default: 5, value_type: "int" }
-      - { label: "Contenu", name: "body", widget: "markdown" }
       - { label: "Auteur", name: "author", widget: "string", default: "Marie" }
       - { label: "Type", name: "type", widget: "hidden", default: "pile" }
+      - { label: "Contenu", name: "body", widget: "markdown" }
 
-  # Articles Tech/Coding
   - name: "tech"
     label: "💻 Articles Tech/Coding"
     folder: "content/posts/tech"
@@ -45,22 +38,18 @@ collections:
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     extension: "md"
     format: "frontmatter"
-    editor:
-      preview: true
     fields:
       - { label: "Titre", name: "title", widget: "string" }
       - { label: "Date de publication", name: "date", widget: "datetime" }
-      - { label: "Slug", name: "slug", widget: "string", pattern: ['^[a-z0-9]+(?:-[a-z0-9]+)*$', "Le slug doit être en minuscules avec des tirets"] }
       - { label: "Catégorie", name: "category", widget: "select", options: ["PWA", "Dev Tools", "Gaming", "Automation", "Tutoriel", "Setup", "Culture JP"] }
       - { label: "Résumé", name: "excerpt", widget: "text", required: true }
       - { label: "Image de couverture", name: "cover", widget: "image", required: false }
       - { label: "Tags", name: "tags", widget: "list", default: [] }
       - { label: "Temps de lecture (min)", name: "reading_time", widget: "number", default: 5, value_type: "int" }
-      - { label: "Contenu", name: "body", widget: "markdown" }
       - { label: "Auteur", name: "author", widget: "string", default: "Marie" }
       - { label: "Type", name: "type", widget: "hidden", default: "face" }
+      - { label: "Contenu", name: "body", widget: "markdown" }
 
-  # Petites Astuces
   - name: "astuces"
     label: "✨ Petites Astuces"
     folder: "content/posts/astuces"
@@ -68,14 +57,11 @@ collections:
     slug: "{{slug}}"
     extension: "md"
     format: "frontmatter"
-    editor:
-      preview: false
     fields:
       - { label: "Titre", name: "title", widget: "string" }
       - { label: "Contenu", name: "body", widget: "text", pattern: ['.{20,150}', "Entre 20 et 150 caractères"] }
       - { label: "Ordre d'affichage", name: "order", widget: "number", default: 1, value_type: "int" }
 
-  # Pages
   - name: "pages"
     label: "📄 Pages"
     files:
@@ -85,7 +71,7 @@ collections:
         fields:
           - { label: "Titre", name: "title", widget: "string" }
           - { label: "Contenu", name: "body", widget: "markdown" }
-      
+
       - label: "Communauté"
         name: "community"
         file: "content/pages/community.md"
