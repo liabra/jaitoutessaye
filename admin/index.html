@@ -1,50 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Admin - J'ai tout essayé</title>
-  
-  <!-- Decap CMS -->
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-  
-  <style>
-    /* Custom styling pour le CMS (optionnel) */
-    :root {
-      --primary-color: #FF85A1;
-      --secondary-color: #00FFC6;
-    }
-  </style>
-</head>
-<body>
-  <!-- Interface Decap CMS s'insère ici -->
-  
-  <script>
-    // Configuration personnalisée (si nécessaire)
-    CMS.registerPreviewStyle("/css/main.css");
-    CMS.registerPreviewStyle("/css/article.css");
-    
-    // Preview template personnalisé pour les articles
-    var PostPreview = createClass({
-      render: function() {
-        var entry = this.props.entry;
-        var title = entry.getIn(['data', 'title']);
-        var excerpt = entry.getIn(['data', 'excerpt']);
-        var body = this.props.widgetFor('body');
-        var type = entry.getIn(['data', 'type']);
-        
-        return h('article', {className: 'post ' + type + '-post'},
-          h('header', {className: 'post-header'},
-            h('h1', {className: 'post-title'}, title),
-            h('p', {className: 'post-subtitle'}, excerpt)
-          ),
-          h('div', {className: 'post-content'}, body)
-        );
-      }
-    });
-    
-    CMS.registerPreviewTemplate('maternite', PostPreview);
-    CMS.registerPreviewTemplate('tech', PostPreview);
-  </script>
-</body>
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Admin</title>
+
+    <!-- Decap CMS -->
+    <script src="https://unpkg.com/decap-cms@^3.10.0/dist/decap-cms.js"></script>
+  </head>
+
+  <body>
+    <div id="nc-root"></div>
+  </body>
 </html>
