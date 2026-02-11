@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mode Hors Ligne - J'ai tout essayé</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'IBM Plex Mono', 'Courier New', monospace;
+            background: linear-gradient(135deg, #0A0E27 0%, #1A1F3A 100%);
+            color: #E0E6FF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .offline-container {
+            text-align: center;
+            max-width: 600px;
+        }
+
+        .offline-icon {
+            font-size: 6rem;
+            margin-bottom: 2rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #00FFC6;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .status {
+            background: rgba(0, 255, 198, 0.1);
+            border: 2px solid #00FFC6;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .status-title {
+            font-size: 0.9rem;
+            color: #00FFC6;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+        }
+
+        .status-message {
+            font-size: 1rem;
+        }
+
+        .cached-content {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .cached-content h2 {
+            font-size: 1.2rem;
+            color: #FF006E;
+            margin-bottom: 1rem;
+        }
+
+        .cached-list {
+            list-style: none;
+            text-align: left;
+        }
+
+        .cached-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .cached-list li:last-child {
+            border-bottom: none;
+        }
+
+        .cached-list a {
+            color: #E0E6FF;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .cached-list a:hover {
+            color: #00FFC6;
+        }
+
+        .retry-button {
+            background: #00FFC6;
+            color: #0A0E27;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .retry-button:hover {
+            background: #FF006E;
+            transform: scale(1.05);
+        }
+
+        .back-button {
+            background: transparent;
+            color: #00FFC6;
+            border: 2px solid #00FFC6;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-left: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: rgba(0, 255, 198, 0.1);
+        }
+
+        .pixel-border {
+            position: relative;
+            padding: 0.5rem;
+        }
+
+        .pixel-border::before,
+        .pixel-border::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #00FFC6;
+        }
+
+        .pixel-border::before {
+            top: 0;
+            left: 0;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        .pixel-border::after {
+            bottom: 0;
+            right: 0;
+            border-left: none;
+            border-top: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="offline-container">
+        <div class="offline-icon">📱</div>
+        
+        <h1 class="pixel-border">Mode Hors Ligne</h1>
+        
+        <p>
+            Vous n'êtes pas connecté·e à Internet, mais pas de panique ! 
+            Grâce à la PWA, vous pouvez toujours consulter les articles mis en cache.
+        </p>
+
+        <div class="status">
+            <div class="status-title">Status Réseau</div>
+            <div class="status-message" id="networkStatus">
+                ⚠️ Pas de connexion détectée
+            </div>
+        </div>
+
+        <div class="cached-content">
+            <h2>📚 Articles Disponibles Hors Ligne</h2>
+            <ul class="cached-list">
+                <li><a href="/">🏠 Accueil</a></li>
+                <li><a href="/pages/maternite.html">🌸 Le Labo des Mamans</a></li>
+                <li><a href="/pages/coding.html">💻 Vibe Coding</a></li>
+                <li><a href="/pages/astuces.html">✨ Petites Astuces</a></li>
+                <li><a href="/posts/allaiter-teletravail.html">📝 Allaiter en télétravail</a></li>
+                <li><a href="/posts/cododo-routine.html">😴 Cododo sans stress</a></li>
+                <li><a href="/posts/blog-pwa-offline.html">🔧 Blog PWA Offline</a></li>
+                <li><a href="/posts/vscode-setup-maman.html">⚙️ Setup VSCode</a></li>
+            </ul>
+        </div>
+
+        <div>
+            <button class="retry-button" onclick="checkConnection()">
+                🔄 Vérifier la connexion
+            </button>
+            <button class="back-button" onclick="goHome()">
+                ← Retour à l'accueil
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function checkConnection() {
+            const statusDiv = document.getElementById('networkStatus');
+            const retryButton = document.querySelector('.retry-button');
+            
+            retryButton.textContent = '⏳ Vérification...';
+            retryButton.disabled = true;
+            
+            setTimeout(() => {
+                if (navigator.onLine) {
+                    statusDiv.innerHTML = '✅ Connexion rétablie !';
+                    statusDiv.style.color = '#00FFC6';
+                    
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1000);
+                } else {
+                    statusDiv.innerHTML = '⚠️ Toujours hors ligne';
+                    retryButton.textContent = '🔄 Réessayer';
+                    retryButton.disabled = false;
+                }
+            }, 1000);
+        }
+
+        function goHome() {
+            window.location.href = '/';
+        }
+
+        // Vérification automatique de la connexion
+        window.addEventListener('online', () => {
+            const statusDiv = document.getElementById('networkStatus');
+            statusDiv.innerHTML = '✅ Connexion rétablie ! Redirection...';
+            statusDiv.style.color = '#00FFC6';
+            
+            setTimeout(() => {
+                window.location.reload();
+            }, 1500);
+        });
+
+        // Message console
+        console.log('%c📱 MODE HORS LIGNE', 'font-size: 20px; font-weight: bold; color: #00FFC6;');
+        console.log('%cVous pouvez toujours consulter le contenu en cache !', 'color: #FF006E;');
+    </script>
+</body>
+</html>

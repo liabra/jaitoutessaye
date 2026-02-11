@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="J'ai tout essayé - Blog maternité authentique & vibe coding. Allaitement, éducation positive, développement web et culture japonaise.">
+    <title>J'ai tout essayé - Maternité & Code</title>
+    
+    <!-- PWA Configuration -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#FFE5EC">
+    <link rel="apple-touch-icon" href="/images/icon-192.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=IBM+Plex+Mono:wght@400;500;600&family=Zen+Kaku+Gothic+New:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+    <!-- Header Navigation -->
+    <header class="site-header">
+        <nav class="nav-container">
+            <div class="logo-wrapper">
+                <h1 class="site-title">
+                    <span class="title-pile">J'ai tout</span>
+                    <span class="title-face">essayé</span>
+                </h1>
+                <p class="site-tagline">Maternité <span class="separator">×</span> Code</p>
+            </div>
+            
+            <div class="nav-links">
+                <a href="#maternite" class="nav-link pile">Le Labo des Mamans</a>
+                <a href="#coding" class="nav-link face">Vibe Coding</a>
+                <a href="/pages/astuces.html" class="nav-link">Petites Astuces</a>
+                <a href="/pages/communaute.html" class="nav-link">Communauté</a>
+            </div>
+            
+            <button class="theme-toggle" aria-label="Basculer le thème">
+                <span class="toggle-icon">◐</span>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h2 class="hero-title">
+                    Bienvenue dans mon univers <br>
+                    <span class="hero-subtitle">entre biberons et lignes de code</span>
+                </h2>
+                <p class="hero-description">
+                    Développeuse, maman, et éternelle curieuse. Je partage mon quotidien 
+                    entre l'allaitement, le cododo, les projets web et les soirées gaming. 
+                    Parce qu'on peut aimer Montessori ET les JRPGs. 🌸💻
+                </p>
+            </div>
+            
+            <div class="hero-illustration">
+                <div class="pixel-art-frame">
+                    <div class="pixel-element cherry-blossom"></div>
+                    <div class="pixel-element controller"></div>
+                    <div class="pixel-element heart"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="scroll-indicator">
+            <span class="scroll-text">Découvrir</span>
+            <span class="scroll-arrow">↓</span>
+        </div>
+    </section>
+
+    <!-- Dashboard Hybride -->
+    <main class="dashboard">
+        <!-- Section Maternité -->
+        <section id="maternite" class="content-section pile-section">
+            <div class="section-header">
+                <h3 class="section-title">
+                    <span class="icon">🌸</span>
+                    Le Labo des Mamans
+                </h3>
+                <a href="/pages/maternite.html" class="see-all">Tous les articles →</a>
+            </div>
+            
+            <div class="articles-grid pile-grid">
+                <!-- Article 1 -->
+                <article class="article-card pile-card">
+                    <div class="card-meta">
+                        <span class="category">Allaitement</span>
+                        <time datetime="2026-02-01">1 fév. 2026</time>
+                    </div>
+                    <h4 class="card-title">Allaiter en télétravail : mon setup parfait</h4>
+                    <p class="card-excerpt">
+                        Comment j'ai organisé mon espace pour coder tout en allaitant. 
+                        Entre le tire-lait et les réunions Zoom, on trouve toujours des solutions.
+                    </p>
+                    <div class="card-tags">
+                        <span class="tag">Allaitement</span>
+                        <span class="tag">Télétravail</span>
+                        <span class="tag">Organisation</span>
+                    </div>
+                    <a href="/posts/allaiter-teletravail.html" class="read-more">Lire la suite</a>
+                </article>
+
+                <!-- Article 2 -->
+                <article class="article-card pile-card">
+                    <div class="card-meta">
+                        <span class="category">Sommeil</span>
+                        <time datetime="2026-01-28">28 jan. 2026</time>
+                    </div>
+                    <h4 class="card-title">Cododo : notre routine du soir sans stress</h4>
+                    <p class="card-excerpt">
+                        Pourquoi on a choisi le cododo et comment on l'a sécurisé. 
+                        Spoiler : tout le monde dort mieux (enfin, presque).
+                    </p>
+                    <div class="card-tags">
+                        <span class="tag">Sommeil</span>
+                        <span class="tag">Cododo</span>
+                        <span class="tag">Routine</span>
+                    </div>
+                    <a href="/posts/cododo-routine.html" class="read-more">Lire la suite</a>
+                </article>
+
+                <!-- Article 3 -->
+                <article class="article-card pile-card">
+                    <div class="card-meta">
+                        <span class="category">DME</span>
+                        <time datetime="2026-01-25">25 jan. 2026</time>
+                    </div>
+                    <h4 class="card-title">Diversification Menée par l'Enfant : mes recettes favorites</h4>
+                    <p class="card-excerpt">
+                        Des idées de repas pour bébé qui mange seul. Simple, nutritif, 
+                        et compatible avec un planning de dev chargé.
+                    </p>
+                    <div class="card-tags">
+                        <span class="tag">Alimentation</span>
+                        <span class="tag">DME</span>
+                        <span class="tag">Recettes</span>
+                    </div>
+                    <a href="/posts/dme-recettes.html" class="read-more">Lire la suite</a>
+                </article>
+
+                <!-- Article 4 -->
+                <article class="article-card pile-card">
+                    <div class="card-meta">
+                        <span class="category">Montessori</span>
+                        <time datetime="2026-01-20">20 jan. 2026</time>
+                    </div>
+                    <h4 class="card-title">Activités Montessori DIY avec zéro budget</h4>
+                    <p class="card-excerpt">
+                        Créer un environnement Montessori sans se ruiner. 
+                        Mes astuces avec du matériel de récup et beaucoup d'imagination.
+                    </p>
+                    <div class="card-tags">
+                        <span class="tag">Montessori</span>
+                        <span class="tag">DIY</span>
+                        <span class="tag">Budget</span>
+                    </div>
+                    <a href="/posts/montessori-diy.html" class="read-more">Lire la suite</a>
+                </article>
+            </div>
+        </section>
+
+        <!-- Section Tech/Coding -->
+        <section id="coding" class="content-section face-section">
+            <div class="section-header">
+                <h3 class="section-title">
+                    <span class="icon">💻</span>
+                    Vibe Coding
+                </h3>
+                <a href="/pages/coding.html" class="see-all">Tous les tutos →</a>
+            </div>
+            
+            <div class="articles-grid face-grid">
+                <!-- Article Tech 1 -->
+                <article class="article-card face-card">
+                    <div class="card-meta">
+                        <span class="category terminal">PWA</span>
+                        <time datetime="2026-02-05">5 fév. 2026</time>
+                    </div>
+                    <h4 class="card-title">Comment j'ai transformé ce blog en PWA offline</h4>
+                    <p class="card-excerpt">
+                        <code>Service Worker + Cache API = lecture hors ligne</code>. 
+                        Le guide complet pour rendre un site statique accessible sans réseau.
+                    </p>
+                    <div class="card-tags">
+                        <span class="tag tech">PWA</span>
+                        <span class="tag tech">JavaScript</span>
+                        <span class="tag tech">Offline-First</span>
+                    </div>
+                    <a href="/posts/blog-pwa-offline.html" class="read-more terminal-link">$ cat article.md</a>
+                </article>
+
+                <!-- Article Tech 2 -->
+                <article class="article-card face-card">
+                    <div class="card-meta">
+                        <span class="category terminal">Dev Tools</span>
+                        <time datetime="2026-02-02">2 fév. 2026</time>
+                    </div>
+                    <h4 class="card-title">Mon setup VSCode pour coder avec bébé sur les genoux</h4>
+                    <p class="card-excerpt">
+                        Extensions, shortcuts et astuces pour rester productive entre deux changes. 
+                        Oui, on peut debugger en chantant des comptines.
+                    </p>
+                    <div class="card-tags">
+                        <span class="tag tech">VSCode</span>
+                        <span class="tag tech">Productivité</span>
+                        <span class="tag tech">Setup</span>
+                    </div>
+                    <a href="/posts/vscode-setup-maman.html" class="read-more terminal-link">$ vim config.json</a>
+                </article>
+
+                <!-- Article Tech 3 -->
+                <article class="article-card face-card">
+                    <div class="card-meta">
+                        <span class="category terminal">Gaming</span>
+                        <time datetime="2026-01-30">30 jan. 2026</time>
+                    </div>
+                    <h4 class="card-title">Les JRPGs parfaits pour jouer par sessions de 15 minutes</h4>
+                    <p class="card-excerpt">
+                        Persona, Dragon Quest, et autres RPGs adaptés au rythme parental. 
+                        Quand on ne peut plus marathoner 8h d'affilée.
+                    </p>
+                    <div class="card-tags">
+                        <span class="tag tech">Gaming</span>
+                        <span class="tag tech">JRPG</span>
+                        <span class="tag tech">Culture JP</span>
+                    </div>
+                    <a href="/posts/jrpg-mamans.html" class="read-more terminal-link">$ play --mode casual</a>
+                </article>
+
+                <!-- Article Tech 4 -->
+                <article class="article-card face-card">
+                    <div class="card-meta">
+                        <span class="category terminal">Automation</span>
+                        <time datetime="2026-01-27">27 jan. 2026</time>
+                    </div>
+                    <h4 class="card-title">Scripts Python pour automatiser la vie de maman dev</h4>
+                    <p class="card-excerpt">
+                        Du tracker de couches aux rappels de rendez-vous : comment j'ai codé 
+                        mes propres outils pour ne plus rien oublier.
+                    </p>
+                    <div class="card-tags">
+                        <span class="tag tech">Python</span>
+                        <span class="tag tech">Automation</span>
+                        <span class="tag tech">Scripts</span>
+                    </div>
+                    <a href="/posts/python-automation-maman.html" class="read-more terminal-link">$ python life.py</a>
+                </article>
+            </div>
+        </section>
+
+        <!-- Section Petites Astuces (Quick Tips) -->
+        <section class="tips-section">
+            <div class="section-header">
+                <h3 class="section-title">
+                    <span class="icon">✨</span>
+                    Petites Astuces Express
+                </h3>
+            </div>
+            
+            <div class="tips-carousel">
+                <div class="tip-card">
+                    <h5 class="tip-title">Coliques du soir</h5>
+                    <p>2 gouttes HE camomille romaine diluées dans huile d'amande douce. Massage doux sur le ventre (sens horaire).</p>
+                </div>
+                <div class="tip-card">
+                    <h5 class="tip-title">Poussée dentaire</h5>
+                    <p>Anneau réfrigéré + camomille en tisane. Éviter le paracétamol systématique, privilégier le portage.</p>
+                </div>
+                <div class="tip-card">
+                    <h5 class="tip-title">Rhume de bébé</h5>
+                    <p>Sérum physiologique + surélever le matelas. Diffusion HE eucalyptus radiata (hors chambre, avant coucher).</p>
+                </div>
+                <div class="tip-card">
+                    <h5 class="tip-title">Engorgement</h5>
+                    <p>Compresses chaudes avant tétée + massage doux. Cataplasme de chou vert après pour décongestionner.</p>
+                </div>
+            </div>
+            
+            <a href="/pages/astuces.html" class="see-all centered">Toutes les astuces naturelles →</a>
+        </section>
+    </main>
+
+    <!-- Footer avec badges -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <!-- Badges de valeurs -->
+            <div class="values-badges">
+                <div class="badge">
+                    <span class="badge-icon">🔒</span>
+                    <div class="badge-text">
+                        <strong>Vie Privée</strong>
+                        <p>Zéro cookie tiers • Architecture statique</p>
+                    </div>
+                </div>
+                
+                <div class="badge">
+                    <span class="badge-icon">📱</span>
+                    <div class="badge-text">
+                        <strong>100% Hors Ligne</strong>
+                        <p>PWA • Lecture sans réseau</p>
+                    </div>
+                </div>
+                
+                <div class="badge">
+                    <span class="badge-icon">💝</span>
+                    <div class="badge-text">
+                        <strong>Communautaire</strong>
+                        <p>Soutien libre • Échange entre mamans</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation footer -->
+            <div class="footer-nav">
+                <div class="footer-col">
+                    <h4>Maternité</h4>
+                    <ul>
+                        <li><a href="/pages/allaitement.html">Allaitement</a></li>
+                        <li><a href="/pages/sommeil.html">Sommeil</a></li>
+                        <li><a href="/pages/dme.html">Alimentation</a></li>
+                        <li><a href="/pages/montessori.html">Pédagogie</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Tech & Code</h4>
+                    <ul>
+                        <li><a href="/pages/tutos.html">Tutoriels</a></li>
+                        <li><a href="/pages/gaming.html">Gaming</a></li>
+                        <li><a href="/pages/japan.html">Culture JP</a></li>
+                        <li><a href="/pages/tools.html">Outils</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Communauté</h4>
+                    <ul>
+                        <li><a href="/pages/communaute.html">Rejoindre</a></li>
+                        <li><a href="/pages/soutien.html">Soutenir le projet</a></li>
+                        <li><a href="/pages/mentions.html">Mentions légales</a></li>
+                        <li><a href="/pages/contact.html">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Credits -->
+            <div class="footer-credits">
+                <p>
+                    Créé avec ❤️ par une maman dev • 
+                    <a href="https://github.com/username/jai-tout-essaye" target="_blank" rel="noopener">Code source disponible</a>
+                </p>
+                <p class="small">
+                    Site statique • Aucun tracking • PWA offline-first • 
+                    Hébergement écologique
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- PWA Install Prompt -->
+    <div class="install-prompt" id="installPrompt" hidden>
+        <div class="prompt-content">
+            <p>📱 <strong>Installer l'app</strong> pour lire hors ligne</p>
+            <button class="btn-install" id="btnInstall">Installer</button>
+            <button class="btn-dismiss" id="btnDismiss">Plus tard</button>
+        </div>
+    </div>
+
+    <script src="/js/main.js"></script>
+    <script src="/js/pwa.js"></script>
+</body>
+</html>

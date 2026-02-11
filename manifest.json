@@ -1,0 +1,142 @@
+{
+  "name": "J'ai tout essayé - Maternité & Code",
+  "short_name": "J'ai tout essayé",
+  "description": "Blog maternité authentique et vibe coding. Allaitement, éducation positive, développement web et culture japonaise.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#FFE5EC",
+  "background_color": "#FFFBF5",
+  "lang": "fr",
+  "dir": "ltr",
+  "categories": [
+    "lifestyle",
+    "education",
+    "technology",
+    "parenting"
+  ],
+  "icons": [
+    {
+      "src": "/images/icon-72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/images/icon-96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/images/icon-128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/images/icon-144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/images/icon-152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/images/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/images/icon-384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/images/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/images/screenshot-mobile.png",
+      "sizes": "540x720",
+      "type": "image/png",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "/images/screenshot-desktop.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Le Labo des Mamans",
+      "short_name": "Maternité",
+      "description": "Articles sur l'allaitement, le sommeil, l'alimentation et la pédagogie",
+      "url": "/pages/maternite.html",
+      "icons": [
+        {
+          "src": "/images/shortcut-maternite.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Vibe Coding",
+      "short_name": "Tech",
+      "description": "Tutoriels, gaming et culture japonaise",
+      "url": "/pages/coding.html",
+      "icons": [
+        {
+          "src": "/images/shortcut-coding.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Petites Astuces",
+      "short_name": "Astuces",
+      "description": "Remèdes naturels et conseils express",
+      "url": "/pages/astuces.html",
+      "icons": [
+        {
+          "src": "/images/shortcut-astuces.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  "share_target": {
+    "action": "/share",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  },
+  "prefer_related_applications": false,
+  "iarc_rating_id": "",
+  "related_applications": [],
+  "serviceworker": {
+    "src": "/sw.js",
+    "scope": "/",
+    "update_via_cache": "none"
+  }
+}
