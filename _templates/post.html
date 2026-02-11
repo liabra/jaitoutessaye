@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{{excerpt}}">
+    <title>{{title}} - J'ai tout essayé</title>
+    
+    <link rel="manifest" href="/manifest.json">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=IBM+Plex+Mono:wght@400;500;600&family=Zen+Kaku+Gothic+New:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/article.css">
+</head>
+<body>
+    <!-- Navigation simple -->
+    <nav class="article-nav">
+        <a href="/" class="back-link">← Retour à l'accueil</a>
+        <div class="article-nav-links">
+            <a href="/pages/maternite.html">Le Labo des Mamans</a>
+            <a href="/pages/coding.html">Vibe Coding</a>
+        </div>
+    </nav>
+
+    <article class="post {{type}}-post">
+        <header class="post-header">
+            <div class="post-meta">
+                <span class="category {{type}}">{{category}}</span>
+                <time datetime="{{date}}">{{formatted_date}}</time>
+                <span class="reading-time">⏱ {{reading_time}} min de lecture</span>
+            </div>
+            
+            <h1 class="post-title">{{title}}</h1>
+            
+            <p class="post-subtitle">{{excerpt}}</p>
+
+            <div class="post-author">
+                <div class="author-avatar">👩‍💻</div>
+                <div class="author-info">
+                    <strong>Par {{author}}</strong>
+                    <span>Dev Full-Stack & Maman</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="post-content">
+            {{content}}
+        </div>
+
+        <footer class="post-footer">
+            <div class="tags">
+                {{#each tags}}
+                <span class="tag">{{this}}</span>
+                {{/each}}
+            </div>
+
+            <div class="share">
+                <h3>Partager cet article</h3>
+                <div class="share-buttons">
+                    <button class="share-btn" onclick="shareArticle('twitter')">
+                        🐦 Twitter
+                    </button>
+                    <button class="share-btn" onclick="shareArticle('facebook')">
+                        👍 Facebook
+                    </button>
+                    <button class="share-btn" onclick="copyLink()">
+                        🔗 Copier le lien
+                    </button>
+                </div>
+            </div>
+
+            <div class="navigation">
+                {{#if previous_post}}
+                <a href="{{previous_post.url}}" class="prev">
+                    ← Article précédent : {{previous_post.title}}
+                </a>
+                {{/if}}
+                {{#if next_post}}
+                <a href="{{next_post.url}}" class="next">
+                    Article suivant : {{next_post.title}} →
+                </a>
+                {{/if}}
+            </div>
+        </footer>
+    </article>
+
+    <!-- Section commentaires (placeholder) -->
+    <section class="comments-section" id="comments">
+        <h3>💬 Vos expériences</h3>
+        <p class="comments-intro">
+            Partagez vos astuces et expériences !
+        </p>
+        
+        <!-- Isso ou Commento sera intégré ici -->
+        <div id="isso-thread"></div>
+    </section>
+
+    <script src="/js/main.js"></script>
+    <script src="/js/article.js"></script>
+</body>
+</html>

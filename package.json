@@ -2,11 +2,16 @@
   "name": "jaitoutessaye",
   "private": true,
   "version": "1.0.0",
+  "type": "module",
   "dependencies": {
+    "gray-matter": "^4.0.3",
+    "handlebars": "^4.7.8",
+    "marked": "^12.0.2",
     "serve": "^14.2.0"
   },
   "scripts": {
-    "start": "serve -s . -l $PORT",
-    "dev": "serve -s . -l 5173"
+    "build": "node scripts/build.cjs",
+    "start": "serve -s dist -l $PORT",
+    "dev": "node scripts/build.cjs && serve -s . -l 5173"
   }
 }

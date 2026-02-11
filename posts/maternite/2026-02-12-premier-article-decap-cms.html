@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Découvrez comment j&#x27;ai intégré Decap CMS à mon blog sans toucher au design existant. Une solution parfaite pour gérer mes articles facilement.">
+    <title>Mon premier article avec Decap CMS - J'ai tout essayé</title>
+    
+    <link rel="manifest" href="/manifest.json">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=IBM+Plex+Mono:wght@400;500;600&family=Zen+Kaku+Gothic+New:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/article.css">
+</head>
+<body>
+    <!-- Navigation simple -->
+    <nav class="article-nav">
+        <a href="/" class="back-link">← Retour à l'accueil</a>
+        <div class="article-nav-links">
+            <a href="/pages/maternite.html">Le Labo des Mamans</a>
+            <a href="/pages/coding.html">Vibe Coding</a>
+        </div>
+    </nav>
+
+    <article class="post pile-post">
+        <header class="post-header">
+            <div class="post-meta">
+                <span class="category pile">Organisation</span>
+                <time datetime="Thu Feb 12 2026 11:00:00 GMT+0100 (heure normale d’Europe centrale)">12 févr. 2026</time>
+                <span class="reading-time">⏱ 7 min de lecture</span>
+            </div>
+            
+            <h1 class="post-title">Mon premier article avec Decap CMS</h1>
+            
+            <p class="post-subtitle">Découvrez comment j&#x27;ai intégré Decap CMS à mon blog sans toucher au design existant. Une solution parfaite pour gérer mes articles facilement.</p>
+
+            <div class="post-author">
+                <div class="author-avatar">👩‍💻</div>
+                <div class="author-info">
+                    <strong>Par Marie</strong>
+                    <span>Dev Full-Stack & Maman</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="post-content">
+            &lt;h2&gt;🎉 Enfin un CMS qui respecte mon design !&lt;/h2&gt;
+&lt;p&gt;Après avoir cherché pendant des semaines la solution parfaite pour gérer mes articles, j&amp;#39;ai trouvé : &lt;strong&gt;Decap CMS&lt;/strong&gt; (ex Netlify CMS).&lt;/p&gt;
+&lt;h3&gt;Pourquoi j&amp;#39;avais besoin d&amp;#39;un CMS ?&lt;/h3&gt;
+&lt;p&gt;Écrire des articles directement en HTML, c&amp;#39;était :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;⏰ &lt;strong&gt;Chronophage&lt;/strong&gt; : copier-coller le template à chaque fois&lt;/li&gt;
+&lt;li&gt;🐛 &lt;strong&gt;Source d&amp;#39;erreurs&lt;/strong&gt; : oublier de fermer une balise&lt;/li&gt;
+&lt;li&gt;📱 &lt;strong&gt;Pas mobile-friendly&lt;/strong&gt; : impossible d&amp;#39;écrire depuis mon téléphone&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Ce que je cherchais&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Préserver mon design&lt;/strong&gt; : Zéro modification du CSS/HTML existant&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Workflow éditorial&lt;/strong&gt; : Brouillons, révisions, publication&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Interface intuitive&lt;/strong&gt; : Markdown + preview&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Sécurité&lt;/strong&gt; : OAuth GitHub, pas de base de données&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Gratuit&lt;/strong&gt; : Open-source et sans frais cachés&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;✨ Decap CMS : la solution parfaite&lt;/h2&gt;
+&lt;h3&gt;L&amp;#39;installation&lt;/h3&gt;
+&lt;p&gt;L&amp;#39;intégration a pris moins d&amp;#39;une heure :&lt;/p&gt;
+&lt;pre&gt;&lt;code class&#x3D;&quot;language-bash&quot;&gt;# 1. Créer la structure
+mkdir -p admin content/posts/{maternite,tech}
+
+# 2. Configurer Decap CMS
+# admin/config.yml + admin/index.html
+
+# 3. Script de build
+node scripts/build.js
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3&gt;Le workflow en pratique&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;J&amp;#39;écris&lt;/strong&gt; dans l&amp;#39;interface &lt;code&gt;/admin&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Je prévisualise&lt;/strong&gt; en temps réel&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Je publie&lt;/strong&gt; (commit GitHub automatique)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Railway rebuild&lt;/strong&gt; et déploie automatiquement&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;Les avantages au quotidien&lt;/h3&gt;
+&lt;h4&gt;✍️ Écriture facilitée&lt;/h4&gt;
+&lt;p&gt;Je peux maintenant :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Écrire depuis n&amp;#39;importe quel appareil&lt;/li&gt;
+&lt;li&gt;Utiliser le Markdown (bien plus rapide que HTML)&lt;/li&gt;
+&lt;li&gt;Avoir une preview en direct&lt;/li&gt;
+&lt;li&gt;Organiser mes brouillons&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;🎨 Design préservé&lt;/h4&gt;
+&lt;p&gt;Le CMS génère du HTML en utilisant &lt;strong&gt;exactement&lt;/strong&gt; mon template existant :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Mêmes classes CSS&lt;/li&gt;
+&lt;li&gt;Même structure DOM&lt;/li&gt;
+&lt;li&gt;Mêmes scripts JS&lt;/li&gt;
+&lt;li&gt;Même esthétique&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;🚀 Workflow professionnel&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;Brouillon → Révision → Publication
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Fini les articles publiés par erreur avec des fautes !&lt;/p&gt;
+&lt;h2&gt;💻 Détails techniques&lt;/h2&gt;
+&lt;h3&gt;Architecture&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;content/posts/maternite/*.md  →  [Build Script]  →  posts/maternite/*.html
+                                        ↓
+                                  index.html (updated)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3&gt;Le build script&lt;/h3&gt;
+&lt;p&gt;Le script &lt;code&gt;build.js&lt;/code&gt; :&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Parse le frontmatter YAML&lt;/li&gt;
+&lt;li&gt;Convertit le Markdown en HTML&lt;/li&gt;
+&lt;li&gt;Injecte dans le template&lt;/li&gt;
+&lt;li&gt;Met à jour &lt;code&gt;index.html&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;Configuration GitHub OAuth&lt;/h3&gt;
+&lt;pre&gt;&lt;code class&#x3D;&quot;language-yaml&quot;&gt;backend:
+  name: github
+  repo: liabra/jaitoutessaye
+  branch: main
+  base_url: https://oauth-worker.workers.dev
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;🎯 Résultat&lt;/h2&gt;
+&lt;h3&gt;Avant Decap CMS&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;⏱️ &lt;strong&gt;30 min&lt;/strong&gt; pour créer un article&lt;/li&gt;
+&lt;li&gt;🐛 &lt;strong&gt;Erreurs HTML&lt;/strong&gt; fréquentes&lt;/li&gt;
+&lt;li&gt;📱 &lt;strong&gt;Pas de mobile&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;😰 &lt;strong&gt;Stress&lt;/strong&gt; à chaque publication&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Après Decap CMS&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;⏱️ &lt;strong&gt;10 min&lt;/strong&gt; pour créer un article&lt;/li&gt;
+&lt;li&gt;✅ &lt;strong&gt;Zéro erreur&lt;/strong&gt; (Markdown + validation)&lt;/li&gt;
+&lt;li&gt;📱 &lt;strong&gt;Écriture mobile&lt;/strong&gt; possible&lt;/li&gt;
+&lt;li&gt;😌 &lt;strong&gt;Workflow serein&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;🌸 Pour conclure&lt;/h2&gt;
+&lt;p&gt;Decap CMS a transformé ma façon de bloguer. Je peux maintenant :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Me concentrer sur l&amp;#39;&lt;strong&gt;écriture&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Publier depuis mon &lt;strong&gt;téléphone&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Gérer un &lt;strong&gt;workflow professionnel&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Garder mon &lt;strong&gt;design intact&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Si vous avez un blog statique et que vous hésitez à ajouter un CMS, &lt;strong&gt;foncez&lt;/strong&gt; ! C&amp;#39;est exactement ce qu&amp;#39;il vous faut.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;Prochaine étape&lt;/strong&gt; : Intégrer un système de commentaires privacy-first (Isso ou Commento).&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Avez-vous déjà utilisé Decap CMS ? Partagez votre expérience en commentaire !&lt;/em&gt;&lt;/p&gt;
+
+        </div>
+
+        <footer class="post-footer">
+            <div class="tags">
+                <span class="tag">CMS</span>
+                <span class="tag">Workflow</span>
+                <span class="tag">Productivité</span>
+                <span class="tag">Decap CMS</span>
+            </div>
+
+            <div class="share">
+                <h3>Partager cet article</h3>
+                <div class="share-buttons">
+                    <button class="share-btn" onclick="shareArticle('twitter')">
+                        🐦 Twitter
+                    </button>
+                    <button class="share-btn" onclick="shareArticle('facebook')">
+                        👍 Facebook
+                    </button>
+                    <button class="share-btn" onclick="copyLink()">
+                        🔗 Copier le lien
+                    </button>
+                </div>
+            </div>
+
+            <div class="navigation">
+            </div>
+        </footer>
+    </article>
+
+    <!-- Section commentaires (placeholder) -->
+    <section class="comments-section" id="comments">
+        <h3>💬 Vos expériences</h3>
+        <p class="comments-intro">
+            Partagez vos astuces et expériences !
+        </p>
+        
+        <!-- Isso ou Commento sera intégré ici -->
+        <div id="isso-thread"></div>
+    </section>
+
+    <script src="/js/main.js"></script>
+    <script src="/js/article.js"></script>
+</body>
+</html>
