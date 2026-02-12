@@ -2,8 +2,8 @@ backend:
   name: github
   repo: liabra/jaitoutessaye
   branch: main
-  base_url: https://jaitoutessaye-oauth-production.up.railway.app/
-  auth_endpoint: auth
+  base_url: https://jaitoutessaye-oauth-production.up.railway.app
+  auth_endpoint: /auth
 
 publish_mode: simple
 
