@@ -255,9 +255,6 @@ async function build() {
     }
 }
 
-const fs = require("fs");
-const path = require("path");
-
 function ensureDir(p) {
   fs.mkdirSync(p, { recursive: true });
 }
