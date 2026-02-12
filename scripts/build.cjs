@@ -255,6 +255,32 @@ async function build() {
     }
 }
 
+const fs = require("fs");
+const path = require("path");
+
+function ensureDir(p) {
+  fs.mkdirSync(p, { recursive: true });
+}
+
+function copyFile(src, dest) {
+  ensureDir(path.dirname(dest));
+  fs.copyFileSync(src, dest);
+}
+
+try {
+  // 🔥 Decap cherche /config.yml (racine)
+  copyFile("config.yml", "dist/config.yml");
+
+  // 🔥 Decap admin
+  copyFile("admin/index.html", "dist/admin/index.html");
+  copyFile("admin/config.yml", "dist/admin/config.yml");
+
+  console.log("✅ CMS files copied to dist/");
+} catch (e) {
+  console.error("❌ Failed to copy CMS files to dist:", e);
+}
+
+
 // Exécuter le build
 if (require.main === module) {
     build();
