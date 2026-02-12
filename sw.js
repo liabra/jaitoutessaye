@@ -3,7 +3,7 @@
  * J'ai tout essayé - Consultable sans réseau
  */
 
-const CACHE_NAME = 'jai-tout-essaye-v1';
+const CACHE_NAME = 'jai-tout-essaye-v2';
 const OFFLINE_URL = '/offline.html';
 
 // Fichiers à mettre en cache immédiatement
@@ -83,29 +83,29 @@ self.addEventListener('activate', (event) => {
 // ============================================
 
 self.addEventListener('fetch', (event) => {
-    const { request } = event;
-    const url = new URL(request.url);
+  const url = new URL(event.request.url);
 
-    // Ignorer les requêtes non-GET
-    if (request.method !== 'GET') {
-        return;
-    }
+  // 🚫 Ne jamais intercepter l’admin ni l’OAuth
+  if (
+    url.pathname.startsWith('/admin') ||
+    url.pathname.startsWith('/auth') ||
+    url.pathname.startsWith('/callback') ||
+    url.origin.includes('github.com')
+  ) {
+    return; // laisser le navigateur gérer
+  }
 
-    // Ignorer les requêtes externes (sauf Google Fonts)
-    if (url.origin !== location.origin && !url.origin.includes('fonts.googleapis.com') && !url.origin.includes('fonts.gstatic.com')) {
-        return;
-    }
+  if (event.request.method !== 'GET') {
+    return;
+  }
 
-    event.respondWith(
-        cacheFirst(request)
-            .catch(() => {
-                // Si offline et aucune version en cache
-                if (request.destination === 'document') {
-                    return caches.match(OFFLINE_URL);
-                }
-            })
-    );
+  event.respondWith(
+    caches.match(event.request).then((response) => {
+      return response || fetch(event.request);
+    })
+  );
 });
+
 
 // ============================================
 // STRATÉGIES DE CACHE
