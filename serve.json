@@ -1,0 +1,10 @@
+{
+  "rewrites": [
+    { "source": "/admin/**", "destination": "/admin/index.html" },
+    { "source": "/assets/**", "destination": "/assets/" },
+    { "source": "/css/**", "destination": "/css/" },
+    { "source": "/js/**", "destination": "/js/" },
+    { "source": "/images/**", "destination": "/images/" },
+    { "source": "/**", "destination": "/index.html" }
+  ]
+}
