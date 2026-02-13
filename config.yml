@@ -1,0 +1,79 @@
+backend:
+  name: github
+  repo: liabra/jaitoutessaye
+  branch: main
+  base_url: https://jaitoutessaye-oauth-production.up.railway.app
+  auth_endpoint: auth
+
+publish_mode: simple
+
+media_folder: "assets/uploads"
+public_folder: "/assets/uploads"
+
+collections:
+  - name: "maternite"
+    label: "🌸 Articles Maternité"
+    folder: "content/posts/maternite"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    fields:
+      - { label: "Titre", name: "title", widget: "string" }
+      - { label: "Date de publication", name: "date", widget: "datetime" }
+      - { label: "Catégorie", name: "category", widget: "select", options: ["Allaitement", "Sommeil", "DME", "Montessori", "Santé naturelle", "Organisation"] }
+      - { label: "Résumé", name: "excerpt", widget: "text", required: true }
+      - { label: "Image de couverture", name: "cover", widget: "image", required: false }
+      - { label: "Tags", name: "tags", widget: "list", default: [] }
+      - { label: "Temps de lecture (min)", name: "reading_time", widget: "number", default: 5, value_type: "int" }
+      - { label: "Auteur", name: "author", widget: "string", default: "Marie" }
+      - { label: "Type", name: "type", widget: "hidden", default: "pile" }
+      - { label: "Contenu", name: "body", widget: "markdown" }
+
+  - name: "tech"
+    label: "💻 Articles Tech/Coding"
+    folder: "content/posts/tech"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    fields:
+      - { label: "Titre", name: "title", widget: "string" }
+      - { label: "Date de publication", name: "date", widget: "datetime" }
+      - { label: "Catégorie", name: "category", widget: "select", options: ["PWA", "Dev Tools", "Gaming", "Automation", "Tutoriel", "Setup", "Culture JP"] }
+      - { label: "Résumé", name: "excerpt", widget: "text", required: true }
+      - { label: "Image de couverture", name: "cover", widget: "image", required: false }
+      - { label: "Tags", name: "tags", widget: "list", default: [] }
+      - { label: "Temps de lecture (min)", name: "reading_time", widget: "number", default: 5, value_type: "int" }
+      - { label: "Auteur", name: "author", widget: "string", default: "Marie" }
+      - { label: "Type", name: "type", widget: "hidden", default: "face" }
+      - { label: "Contenu", name: "body", widget: "markdown" }
+
+  - name: "astuces"
+    label: "✨ Petites Astuces"
+    folder: "content/posts/astuces"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    fields:
+      - { label: "Titre", name: "title", widget: "string" }
+      - { label: "Contenu", name: "body", widget: "text", pattern: ['.{20,150}', "Entre 20 et 150 caractères"] }
+      - { label: "Ordre d'affichage", name: "order", widget: "number", default: 1, value_type: "int" }
+
+  - name: "pages"
+    label: "📄 Pages"
+    files:
+      - label: "À propos"
+        name: "about"
+        file: "content/pages/about.md"
+        fields:
+          - { label: "Titre", name: "title", widget: "string" }
+          - { label: "Contenu", name: "body", widget: "markdown" }
+
+      - label: "Communauté"
+        name: "community"
+        file: "content/pages/community.md"
+        fields:
+          - { label: "Titre", name: "title", widget: "string" }
+          - { label: "Contenu", name: "body", widget: "markdown" }
