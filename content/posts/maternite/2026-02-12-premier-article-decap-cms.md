@@ -1,17 +1,12 @@
 ---
 title: "Mon premier article avec Decap CMS"
-date: 2026-02-12T10:00:00Z
-slug: "premier-article-decap-cms"
+date: "2026-02-12"
 category: "Organisation"
 excerpt: "Découvrez comment j'ai intégré Decap CMS à mon blog sans toucher au design existant. Une solution parfaite pour gérer mes articles facilement."
 cover: "/images/posts/decap-cms-cover.jpg"
-tags:
-  - CMS
-  - Workflow
-  - Productivité
-  - Decap CMS
+tags: ["CMS", "Workflow", "Productivité", "Decap CMS"]
 reading_time: 7
-author: "Marie"
+author: "Lia"
 type: "pile"
 ---
 
