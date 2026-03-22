@@ -1,16 +1,635 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="cms-config-url" href="/admin/config.yml" />
-    <title>Admin</title>
-  </head>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin — J'ai tout essayé</title>
+  <style>
+    :root {
+      --bg: #fafaf8;
+      --surface: #fff;
+      --border: #e5e5e0;
+      --text: #1a1a1a;
+      --muted: #888;
+      --accent: #e8a0b4;
+      --danger: #d94f4f;
+      --success: #3cb371;
+      --r: 8px;
+      --font: system-ui, -apple-system, sans-serif;
+      --mono: 'IBM Plex Mono', 'Courier New', monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); min-height: 100vh; }
 
-  <body>
-    <div id="nc-root"></div>
+    /* Header */
+    .header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 1.5rem;
+      height: 54px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .header-title { font-size: 0.95rem; font-weight: 600; }
+    .header-title span { color: var(--accent); }
+    .main { max-width: 860px; margin: 0 auto; padding: 2rem 1.5rem; }
 
-    <!-- IMPORTANT : script APRES le nc-root -->
-    <script src="https://unpkg.com/decap-cms@^3.10.0/dist/decap-cms.js"></script>
-  </body>
+    /* Auth */
+    .auth-wrap { max-width: 400px; margin: 5rem auto; }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 2rem;
+    }
+    .card h1 { font-size: 1.2rem; margin-bottom: 0.4rem; }
+    .card p { color: var(--muted); font-size: 0.85rem; line-height: 1.5; margin-bottom: 1.5rem; }
+    .hint { margin-top: 1rem !important; margin-bottom: 0 !important; }
+    .hint a { color: var(--text); }
+
+    /* Fields */
+    .field { margin-bottom: 1rem; }
+    label { display: block; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); margin-bottom: 0.3rem; }
+    input, select, textarea {
+      width: 100%;
+      padding: 0.55rem 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      font-family: var(--font);
+      font-size: 0.9rem;
+      background: var(--surface);
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    input:focus, select:focus, textarea:focus { border-color: var(--accent); }
+    textarea { resize: vertical; min-height: 100px; }
+    textarea.body-field { font-family: var(--mono); font-size: 0.82rem; min-height: 340px; }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.5rem 1rem;
+      border-radius: var(--r);
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      border: none;
+      transition: opacity 0.15s;
+      font-family: var(--font);
+    }
+    .btn:hover { opacity: 0.82; }
+    .btn:disabled { opacity: 0.45; cursor: not-allowed; }
+    .btn-primary { background: var(--text); color: #fff; }
+    .btn-secondary { background: var(--surface); color: var(--text); border: 1px solid var(--border); }
+    .btn-danger { background: var(--danger); color: #fff; }
+    .btn-sm { padding: 0.32rem 0.65rem; font-size: 0.8rem; }
+
+    /* Tabs */
+    .tabs { display: flex; gap: 0; border-bottom: 1px solid var(--border); margin-bottom: 1.5rem; }
+    .tab {
+      padding: 0.65rem 1.1rem;
+      border: none;
+      background: none;
+      font-size: 0.875rem;
+      cursor: pointer;
+      color: var(--muted);
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      font-family: var(--font);
+      transition: color 0.15s;
+    }
+    .tab.active { color: var(--text); border-bottom-color: var(--text); font-weight: 600; }
+    .tab:hover:not(.active) { color: var(--text); }
+
+    /* List */
+    .list-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+    .list-header h2 { font-size: 0.95rem; font-weight: 600; }
+    .article-list { display: flex; flex-direction: column; gap: 0.6rem; }
+    .article-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 0.9rem 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .article-info { flex: 1; min-width: 0; }
+    .article-title { font-weight: 500; font-size: 0.92rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .article-meta { font-size: 0.78rem; color: var(--muted); margin-top: 0.15rem; }
+    .article-actions { display: flex; gap: 0.4rem; flex-shrink: 0; }
+    .empty { text-align: center; padding: 3rem; color: var(--muted); font-size: 0.9rem; }
+    .loading { text-align: center; padding: 3rem; color: var(--muted); }
+
+    /* Editor */
+    .editor-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+    .editor-header h2 { font-size: 0.95rem; font-weight: 600; flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .editor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .field-full { grid-column: 1 / -1; }
+    .char-info { font-size: 0.75rem; color: var(--muted); text-align: right; margin-top: 0.2rem; }
+    .char-info.over { color: var(--danger); }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      padding: 0.7rem 1.1rem;
+      border-radius: var(--r);
+      font-size: 0.85rem;
+      font-weight: 500;
+      z-index: 1000;
+      animation: slideUp 0.2s ease;
+    }
+    .toast-info { background: #222; color: #fff; }
+    .toast-ok { background: var(--success); color: #fff; }
+    .toast-error { background: var(--danger); color: #fff; }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 580px) {
+      .editor-grid { grid-template-columns: 1fr; }
+      .field-full { grid-column: 1; }
+    }
+  </style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+// ─── CONFIG ─────────────────────────────────────────────────
+const REPO   = 'liabra/jaitoutessaye';
+const BRANCH = 'main';
+
+const COLS = {
+  maternite: {
+    label: '🌸 Maternité',
+    path: 'content/posts/maternite',
+    type: 'pile',
+    cats: ['Allaitement', 'Sommeil', 'DME', 'Montessori', 'Santé naturelle', 'Organisation'],
+  },
+  tech: {
+    label: '💻 Tech',
+    path: 'content/posts/tech',
+    type: 'face',
+    cats: ['PWA', 'Dev Tools', 'Gaming', 'Automation', 'Tutoriel', 'Setup', 'Culture JP'],
+  },
+  astuces: {
+    label: '✨ Astuces',
+    path: 'content/posts/astuces',
+    type: null,
+    cats: null,
+  },
+};
+
+// ─── STATE ──────────────────────────────────────────────────
+const S = {
+  token:      localStorage.getItem('gh_token') || '',
+  view:       'auth',   // auth | list | editor
+  col:        'maternite',
+  articles:   [],
+  editing:    null,     // { filename, sha, fm, body }
+  loading:    false,
+};
+
+// ─── GITHUB API ─────────────────────────────────────────────
+async function gh(path, opts = {}) {
+  const res = await fetch(`https://api.github.com${path}`, {
+    ...opts,
+    headers: {
+      Authorization: `token ${S.token}`,
+      Accept: 'application/vnd.github.v3+json',
+      'Content-Type': 'application/json',
+      ...(opts.headers || {}),
+    },
+  });
+  if (!res.ok) {
+    const e = await res.json().catch(() => ({}));
+    throw new Error(e.message || `HTTP ${res.status}`);
+  }
+  return res.json();
+}
+
+const listDir  = (p)         => gh(`/repos/${REPO}/contents/${p}?ref=${BRANCH}`);
+const getFile  = (p)         => gh(`/repos/${REPO}/contents/${p}?ref=${BRANCH}`);
+const putFile  = (p, b)      => gh(`/repos/${REPO}/contents/${p}`, { method: 'PUT',    body: JSON.stringify(b) });
+const delFile  = (p, b)      => gh(`/repos/${REPO}/contents/${p}`, { method: 'DELETE', body: JSON.stringify(b) });
+
+// ─── UTILS ──────────────────────────────────────────────────
+const b64enc = s  => btoa(unescape(encodeURIComponent(s)));
+const b64dec = s  => decodeURIComponent(escape(atob(s)));
+const today  = () => new Date().toISOString().slice(0, 10);
+const esc    = s  => String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+function slugify(s) {
+  return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+          .replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+}
+
+// ─── FRONTMATTER ────────────────────────────────────────────
+function parseFM(raw) {
+  const m = raw.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/);
+  if (!m) return { fm: {}, body: raw.trim() };
+
+  const fm = {};
+  const lines = m[1].split('\n');
+  let i = 0;
+  while (i < lines.length) {
+    const ci = lines[i].indexOf(':');
+    if (ci < 0) { i++; continue; }
+    const key = lines[i].slice(0, ci).trim();
+    const val = lines[i].slice(ci + 1).trim();
+
+    if (val === '' || val === '[]') {
+      const arr = [];
+      i++;
+      while (i < lines.length && lines[i].trim().startsWith('- ')) {
+        arr.push(lines[i].trim().slice(2).replace(/^["']|["']$/g, ''));
+        i++;
+      }
+      fm[key] = arr;
+      continue;
+    } else if (val.startsWith('[')) {
+      try { fm[key] = JSON.parse(val.replace(/'/g, '"')); }
+      catch { fm[key] = val.slice(1,-1).split(',').map(x => x.trim().replace(/^["']|["']$/g,'')); }
+    } else if (!isNaN(val) && val !== '') {
+      fm[key] = Number(val);
+    } else {
+      fm[key] = val.replace(/^["']|["']$/g, '');
+    }
+    i++;
+  }
+  return { fm, body: m[2].trim() };
+}
+
+function buildFM(fm, body) {
+  const lines = ['---'];
+  for (const [k, v] of Object.entries(fm)) {
+    if (Array.isArray(v))       lines.push(`${k}: [${v.map(x => `"${x}"`).join(', ')}]`);
+    else if (typeof v === 'number') lines.push(`${k}: ${v}`);
+    else                        lines.push(`${k}: "${v}"`);
+  }
+  lines.push('---', '', body);
+  return lines.join('\n');
+}
+
+// ─── TOAST ──────────────────────────────────────────────────
+let _toastTimer;
+function toast(msg, type = 'info') {
+  clearTimeout(_toastTimer);
+  document.querySelectorAll('.toast').forEach(el => el.remove());
+  const el = document.createElement('div');
+  el.className = `toast toast-${type}`;
+  el.textContent = msg;
+  document.body.appendChild(el);
+  if (type !== 'info') _toastTimer = setTimeout(() => el.remove(), 3500);
+}
+
+// ─── RENDER ─────────────────────────────────────────────────
+function render() {
+  const app = document.getElementById('app');
+  if (S.view === 'auth') {
+    app.innerHTML = renderAuth();
+    document.getElementById('f-token').addEventListener('keydown', e => e.key === 'Enter' && login());
+  } else if (S.view === 'list') {
+    app.innerHTML = renderShell(renderList());
+  } else if (S.view === 'editor') {
+    app.innerHTML = renderShell(renderEditor());
+    document.getElementById('f-body')?.addEventListener('input', updateCharCount);
+  }
+}
+
+function renderShell(inner) {
+  return `
+    <header class="header">
+      <div class="header-title">Admin <span>J'ai tout essayé</span></div>
+      <button class="btn btn-secondary btn-sm" onclick="logout()">Déconnexion</button>
+    </header>
+    <main class="main">${inner}</main>`;
+}
+
+// AUTH
+function renderAuth() {
+  return `
+    <div class="auth-wrap">
+      <div class="card">
+        <h1>Administration</h1>
+        <p>Connecte-toi avec ton Personal Access Token GitHub (scope <strong>repo</strong>).</p>
+        <div class="field">
+          <label>GitHub Personal Access Token</label>
+          <input id="f-token" type="password" placeholder="ghp_…" value="${esc(S.token)}" autocomplete="current-password" />
+        </div>
+        <button class="btn btn-primary" onclick="login()">Se connecter</button>
+        <p class="hint">
+          <a href="https://github.com/settings/tokens/new?scopes=repo" target="_blank" rel="noopener">
+            Créer un token →
+          </a>
+        </p>
+      </div>
+    </div>`;
+}
+
+// LIST
+function renderList() {
+  const col = COLS[S.col];
+
+  const tabs = Object.entries(COLS).map(([id, c]) =>
+    `<button class="tab ${S.col === id ? 'active' : ''}" onclick="switchCol('${id}')">${c.label}</button>`
+  ).join('');
+
+  let body;
+  if (S.loading) {
+    body = '<div class="loading">Chargement…</div>';
+  } else if (!S.articles.length) {
+    body = '<div class="empty">Aucun article — crée le premier !</div>';
+  } else {
+    body = '<div class="article-list">' + S.articles.map(a => {
+      const dateStr = a.fm.date
+        ? new Date(a.fm.date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' })
+        : '';
+      const sub = [dateStr, a.fm.category].filter(Boolean).join(' · ');
+      return `
+        <div class="article-item">
+          <div class="article-info">
+            <div class="article-title">${esc(a.fm.title || a.filename)}</div>
+            ${sub ? `<div class="article-meta">${esc(sub)}</div>` : ''}
+          </div>
+          <div class="article-actions">
+            <button class="btn btn-secondary btn-sm" onclick="editArticle('${esc(a.filename)}')">Modifier</button>
+            <button class="btn btn-danger btn-sm"    onclick="confirmDel('${esc(a.filename)}','${a.sha}')">Supprimer</button>
+          </div>
+        </div>`;
+    }).join('') + '</div>';
+  }
+
+  return `
+    <div class="tabs">${tabs}</div>
+    <div class="list-header">
+      <h2>${col.label}</h2>
+      <button class="btn btn-primary btn-sm" onclick="newArticle()">+ Nouvel article</button>
+    </div>
+    ${body}`;
+}
+
+// EDITOR
+function renderEditor() {
+  const col  = COLS[S.col];
+  const fm   = S.editing?.fm   || {};
+  const body = S.editing?.body || '';
+  const isNew = !S.editing?.sha;
+
+  let fields;
+
+  if (S.col === 'astuces') {
+    fields = `
+      <div class="editor-grid">
+        <div class="field field-full">
+          <label>Titre / slug</label>
+          <input id="f-title" type="text" value="${esc(fm.title || '')}" placeholder="ex: astuce-sommeil" />
+        </div>
+        <div class="field">
+          <label>Ordre d'affichage</label>
+          <input id="f-order" type="number" value="${fm.order || 1}" min="1" />
+        </div>
+        <div class="field field-full">
+          <label>Contenu (20–150 caractères)</label>
+          <textarea id="f-body">${esc(body)}</textarea>
+          <div class="char-info" id="char-info">${body.length}/150</div>
+        </div>
+      </div>`;
+  } else {
+    const opts = (col.cats || []).map(c =>
+      `<option value="${esc(c)}" ${fm.category === c ? 'selected' : ''}>${esc(c)}</option>`
+    ).join('');
+    fields = `
+      <div class="editor-grid">
+        <div class="field field-full">
+          <label>Titre</label>
+          <input id="f-title" type="text" value="${esc(fm.title || '')}" />
+        </div>
+        <div class="field">
+          <label>Date de publication</label>
+          <input id="f-date" type="date" value="${String(fm.date || '').slice(0,10) || today()}" />
+        </div>
+        <div class="field">
+          <label>Catégorie</label>
+          <select id="f-category">${opts}</select>
+        </div>
+        <div class="field field-full">
+          <label>Résumé</label>
+          <textarea id="f-excerpt" rows="3">${esc(fm.excerpt || '')}</textarea>
+        </div>
+        <div class="field">
+          <label>Tags (séparés par des virgules)</label>
+          <input id="f-tags" type="text" value="${esc((fm.tags || []).join(', '))}" placeholder="tag1, tag2" />
+        </div>
+        <div class="field">
+          <label>Temps de lecture (min)</label>
+          <input id="f-reading_time" type="number" value="${fm.reading_time || 5}" min="1" />
+        </div>
+        <div class="field field-full">
+          <label>Image de couverture (URL ou chemin)</label>
+          <input id="f-cover" type="text" value="${esc(fm.cover || '')}" placeholder="/assets/uploads/image.jpg" />
+        </div>
+        <div class="field">
+          <label>Auteur</label>
+          <input id="f-author" type="text" value="${esc(fm.author || 'Marie')}" />
+        </div>
+        <div class="field field-full">
+          <label>Contenu (Markdown)</label>
+          <textarea id="f-body" class="body-field">${esc(body)}</textarea>
+        </div>
+      </div>`;
+  }
+
+  return `
+    <div class="editor-header">
+      <button class="btn btn-secondary btn-sm" onclick="backToList()">← Retour</button>
+      <h2>${isNew ? 'Nouvel article' : esc(fm.title || S.editing?.filename || '')}</h2>
+      <button id="save-btn" class="btn btn-primary" onclick="saveArticle()">Sauvegarder</button>
+    </div>
+    <form onsubmit="return false">${fields}</form>`;
+}
+
+// ─── ACTIONS ────────────────────────────────────────────────
+async function login() {
+  const token = document.getElementById('f-token').value.trim();
+  if (!token) return;
+  S.token = token;
+  toast('Vérification…');
+  try {
+    await gh('/user');
+    localStorage.setItem('gh_token', token);
+    toast('Connecté !', 'ok');
+    S.view = 'list';
+    render();
+    await loadArticles();
+    render();
+  } catch (e) {
+    toast(`Erreur : ${e.message}`, 'error');
+  }
+}
+
+function logout() {
+  localStorage.removeItem('gh_token');
+  S.token = ''; S.view = 'auth';
+  render();
+}
+
+async function switchCol(id) {
+  S.col = id; S.articles = []; S.view = 'list';
+  render();
+  await loadArticles();
+  render();
+}
+
+async function loadArticles() {
+  S.loading = true;
+  render();
+  const col = COLS[S.col];
+  try {
+    const files = (await listDir(col.path)).filter(f => f.name.endsWith('.md'));
+    const articles = await Promise.all(files.map(async f => {
+      const file = await getFile(`${col.path}/${f.name}`);
+      const raw  = b64dec(file.content.replace(/\n/g, ''));
+      const { fm, body } = parseFM(raw);
+      return { filename: f.name, sha: file.sha, fm, body };
+    }));
+
+    if (S.col === 'astuces') articles.sort((a, b) => (a.fm.order||0) - (b.fm.order||0));
+    else articles.sort((a, b) => new Date(b.fm.date||0) - new Date(a.fm.date||0));
+
+    S.articles = articles;
+  } catch (e) {
+    toast(`Erreur chargement : ${e.message}`, 'error');
+    S.articles = [];
+  }
+  S.loading = false;
+}
+
+function newArticle() {
+  const col = COLS[S.col];
+  S.editing = {
+    filename: null,
+    sha: null,
+    fm: S.col === 'astuces'
+      ? { title: '', order: 1 }
+      : { title: '', date: today(), category: (col.cats||[])[0]||'', excerpt: '', cover: '', tags: [], reading_time: 5, author: 'Marie', type: col.type },
+    body: '',
+  };
+  S.view = 'editor';
+  render();
+}
+
+function editArticle(filename) {
+  const art = S.articles.find(a => a.filename === filename);
+  if (!art) return;
+  S.editing = { ...art };
+  S.view = 'editor';
+  render();
+}
+
+function backToList() {
+  S.view = 'list'; S.editing = null;
+  render();
+}
+
+async function saveArticle() {
+  const col = COLS[S.col];
+  const btn = document.getElementById('save-btn');
+  btn.disabled = true;
+  toast('Sauvegarde en cours…');
+
+  try {
+    let fm, body, filename;
+
+    if (S.col === 'astuces') {
+      const title = document.getElementById('f-title').value.trim();
+      const order = parseInt(document.getElementById('f-order').value) || 1;
+      body  = document.getElementById('f-body').value.trim();
+      if (!title) throw new Error('Le titre est requis');
+      fm       = { title, order };
+      filename = S.editing?.filename || `${slugify(title)}.md`;
+    } else {
+      const title   = document.getElementById('f-title').value.trim();
+      const date    = document.getElementById('f-date').value;
+      const cat     = document.getElementById('f-category').value;
+      const excerpt = document.getElementById('f-excerpt').value.trim();
+      const cover   = document.getElementById('f-cover').value.trim();
+      const tags    = document.getElementById('f-tags').value.split(',').map(t => t.trim()).filter(Boolean);
+      const rt      = parseInt(document.getElementById('f-reading_time').value) || 5;
+      const author  = document.getElementById('f-author').value.trim() || 'Marie';
+      body = document.getElementById('f-body').value.trim();
+      if (!title) throw new Error('Le titre est requis');
+      fm = { title, date, category: cat, excerpt, cover, tags, reading_time: rt, author, type: col.type };
+      filename = S.editing?.filename || `${date}-${slugify(title)}.md`;
+    }
+
+    const path    = `${col.path}/${filename}`;
+    const content = buildFM(fm, body);
+    const sha     = S.editing?.sha || undefined;
+    const verb    = sha ? 'Update' : 'Add';
+
+    await putFile(path, {
+      message: `${verb} article: ${fm.title || filename}`,
+      content: b64enc(content),
+      branch:  BRANCH,
+      ...(sha ? { sha } : {}),
+    });
+
+    toast('Sauvegardé ! Railway rebuild en cours…', 'ok');
+    S.view = 'list'; S.editing = null; S.articles = [];
+    render();
+    await loadArticles();
+    render();
+  } catch (e) {
+    toast(`Erreur : ${e.message}`, 'error');
+    btn.disabled = false;
+  }
+}
+
+async function confirmDel(filename, sha) {
+  if (!confirm(`Supprimer "${filename}" ?`)) return;
+  const col = COLS[S.col];
+  toast('Suppression…');
+  try {
+    await delFile(`${col.path}/${filename}`, {
+      message: `Delete ${filename}`,
+      sha,
+      branch: BRANCH,
+    });
+    toast('Supprimé !', 'ok');
+    S.articles = S.articles.filter(a => a.filename !== filename);
+    render();
+  } catch (e) {
+    toast(`Erreur : ${e.message}`, 'error');
+  }
+}
+
+function updateCharCount() {
+  const val  = document.getElementById('f-body')?.value || '';
+  const info = document.getElementById('char-info');
+  if (!info) return;
+  info.textContent = `${val.length}/150`;
+  info.classList.toggle('over', val.length > 150);
+}
+
+// ─── INIT ───────────────────────────────────────────────────
+if (S.token) {
+  S.view = 'list';
+  render();
+  loadArticles().then(() => render());
+} else {
+  render();
+}
+</script>
+</body>
 </html>
