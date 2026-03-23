@@ -2,3 +2,8 @@ node_modules
 .DS_Store
 dist
 .env
+
+# Fichiers générés par le build (Railway les regénère à chaque déploiement)
+posts/**/*.html
+posts/*.html
+pages/*.html

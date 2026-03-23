@@ -313,6 +313,30 @@ function buildAstucesPage() {
     console.log(`  ✅ pages/astuces.html (${astuces.length} astuces)`);
 }
 
+// ─── CLEANUP ORPHANS ────────────────────────────────────────
+
+function cleanOrphanedHTML(validUrls) {
+    if (!fs.existsSync(CONFIG.outputDir)) return;
+    // Normalize to relative paths without leading ./ or /
+    const validPaths = new Set(validUrls.map(u => u.replace(/^\//, '')));
+
+    function scanDir(dir) {
+        fs.readdirSync(dir).forEach(file => {
+            const fp = path.join(dir, file);
+            if (fs.statSync(fp).isDirectory()) {
+                scanDir(fp);
+            } else if (fp.endsWith('.html')) {
+                const rel = fp.replace(/\\/g, '/').replace(/^\.\//, '');
+                if (!validPaths.has(rel)) {
+                    fs.unlinkSync(fp);
+                    console.log(`  🗑  Supprimé (orphelin): ${fp}`);
+                }
+            }
+        });
+    }
+    scanDir(CONFIG.outputDir);
+}
+
 // ─── MAIN BUILD ─────────────────────────────────────────────
 
 async function build() {
@@ -334,6 +358,9 @@ async function build() {
 
         console.log('\n📝 Mise à jour index.html…');
         updateIndexHTML(articles);
+
+        console.log('\n🗑  Nettoyage des articles orphelins…');
+        cleanOrphanedHTML(articles.map(a => a.url));
 
         console.log('\n📂 Génération des pages de liste…');
         buildMaterniteListPage(articles);
