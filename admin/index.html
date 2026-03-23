@@ -212,6 +212,11 @@ async function gh(path, opts = {}) {
     },
   });
   if (!res.ok) {
+    if (res.status === 404) {
+      const err = new Error(`HTTP 404`);
+      err.status = 404;
+      throw err;
+    }
     const e = await res.json().catch(() => ({}));
     throw new Error(e.message || `HTTP ${res.status}`);
   }
@@ -496,7 +501,9 @@ async function loadArticles() {
   render();
   const col = COLS[S.col];
   try {
-    const files = (await listDir(col.path)).filter(f => f.name.endsWith('.md'));
+    let dirFiles = [];
+    try { dirFiles = await listDir(col.path); } catch (e) { if (e.status !== 404) throw e; }
+    const files = dirFiles.filter(f => f.name.endsWith('.md'));
     const articles = await Promise.all(files.map(async f => {
       const file = await getFile(`${col.path}/${f.name}`);
       const raw  = b64dec(file.content.replace(/\n/g, ''));

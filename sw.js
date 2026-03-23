@@ -3,10 +3,10 @@
  * J'ai tout essayé - Consultable sans réseau
  */
 
-const CACHE_NAME = 'jai-tout-essaye-v2';
+const CACHE_NAME = 'jai-tout-essaye-v3';
 const OFFLINE_URL = '/offline.html';
 
-// Fichiers à mettre en cache immédiatement
+// Fichiers à mettre en cache immédiatement (doivent tous exister)
 const STATIC_CACHE = [
     '/',
     '/index.html',
@@ -15,18 +15,6 @@ const STATIC_CACHE = [
     '/js/pwa.js',
     '/offline.html',
     '/manifest.json',
-    '/images/icon-192.png',
-    '/images/icon-512.png',
-    // Polices Google Fonts en cache
-    'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=IBM+Plex+Mono:wght@400;500;600&family=Zen+Kaku+Gothic+New:wght@300;400;500&display=swap'
-];
-
-// Pages et ressources à mettre en cache dynamiquement
-const DYNAMIC_CACHE = [
-    '/pages/maternite.html',
-    '/pages/coding.html',
-    '/pages/astuces.html',
-    '/pages/communaute.html'
 ];
 
 // ============================================
@@ -38,17 +26,8 @@ self.addEventListener('install', (event) => {
     
     event.waitUntil(
         caches.open(CACHE_NAME)
-            .then((cache) => {
-                console.log('[SW] Mise en cache des fichiers statiques');
-                return cache.addAll(STATIC_CACHE);
-            })
-            .then(() => {
-                console.log('[SW] Installation terminée');
-                return self.skipWaiting();
-            })
-            .catch((error) => {
-                console.error('[SW] Erreur d\'installation:', error);
-            })
+            .then((cache) => cache.addAll(STATIC_CACHE))
+            .then(() => self.skipWaiting())
     );
 });
 

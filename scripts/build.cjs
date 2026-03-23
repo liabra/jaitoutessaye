@@ -124,8 +124,25 @@ function updateIndexHTML(articles) {
         `<!-- FACE_POSTS_START -->\n${face.slice(0, 4).map(a => generateArticleCard(a.articleData, a.url)).join('\n')}\n            <!-- FACE_POSTS_END -->`
     );
 
+    // Astuces section
+    const astucesDir = path.join(CONFIG.contentDir, 'astuces');
+    const astucesFiles = getAllMarkdownFiles(astucesDir);
+    const astuces = astucesFiles
+        .map(f => { const { data, content } = matter(fs.readFileSync(f, 'utf-8')); return { title: data.title || '', order: data.order || 99, body: content.trim() }; })
+        .sort((a, b) => a.order - b.order)
+        .slice(0, 6);
+    const astucesHTML = astuces.map(a => `
+                <div class="tip-card">
+                    <h5 class="tip-title">${a.title}</h5>
+                    <p>${a.body}</p>
+                </div>`).join('');
+    html = html.replace(
+        /<!-- ASTUCES_START -->[\s\S]*?<!-- ASTUCES_END -->/,
+        `<!-- ASTUCES_START -->${astucesHTML}\n                <!-- ASTUCES_END -->`
+    );
+
     fs.writeFileSync(CONFIG.indexPath, html, 'utf-8');
-    console.log(`  ✅ index.html mis à jour (${articles.length} articles)`);
+    console.log(`  ✅ index.html mis à jour (${articles.length} articles, ${astuces.length} astuces)`);
 }
 
 // ─── PAGE LAYOUT ────────────────────────────────────────────
